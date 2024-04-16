@@ -6,6 +6,37 @@
 #         without any warranty.
 #         Copyright 2012— Gregory Pakosz (@gpakosz).
 
+# -- custom keybindings --------------------------------------------------------
+
+# Reorder tabs, move left and right
+bind-key -n C-S-Left swap-window -t -1\; select-window -t -1
+bind-key -n C-S-Right swap-window -t +1\; select-window -t +1
+
+# Switch tabs, left and right (clashing with terminal)
+# bind-key -n C-Left select-window -t -1
+# bind-key -n C-Right select-window -t +1
+
+# Move up and down pressing Shift+PageUp and Shift+PageDown
+bind-key -n S-PageUp copy-mode \; send-keys PageUp
+bind-key -n S-PageDown copy-mode \; send-keys PageDown
+
+# Some extra key bindings to select higher numbered windows
+bind-key 0 select-window -t 10
+bind-key F1  select-window -t:11
+bind-key F2  select-window -t:12
+bind-key F3  select-window -t:13
+bind-key F4  select-window -t:14
+bind-key F5  select-window -t:15
+bind-key F6  select-window -t:16
+bind-key F7  select-window -t:17
+bind-key F8  select-window -t:18
+bind-key F9  select-window -t:19
+bind-key F10 select-window -t:20
+bind-key F11 select-window -t:21
+bind-key F12 select-window -t:22
+
+# Replace default session switcher
+set -g @sessionx-bind 's'
 
 # -- bindings ------------------------------------------------------------------
 
@@ -15,7 +46,6 @@
 #   - true
 #   - false (default)
 tmux_conf_preserve_stock_bindings=false
-
 
 # -- session creation ----------------------------------------------------------
 
@@ -56,7 +86,7 @@ tmux_conf_new_pane_retain_current_path=true
 #   - true
 #   - false (default)
 #   - disabled (do not modify split-window bindings)
-tmux_conf_new_pane_reconnect_ssh=false
+tmux_conf_new_pane_reconnect_ssh=true
 
 
 # -- display -------------------------------------------------------------------
@@ -85,43 +115,77 @@ tmux_conf_24b_colour=auto
 #   - tmux_conf_theme_synchronized
 tmux_conf_theme=enabled
 
-# default theme
-tmux_conf_theme_colour_1="#080808"    # dark gray
-tmux_conf_theme_colour_2="#303030"    # gray
-tmux_conf_theme_colour_3="#8a8a8a"    # light gray
-tmux_conf_theme_colour_4="#00afff"    # light blue
-tmux_conf_theme_colour_5="#ffff00"    # yellow
-tmux_conf_theme_colour_6="#080808"    # dark gray
-tmux_conf_theme_colour_7="#e4e4e4"    # white
-tmux_conf_theme_colour_8="#080808"    # dark gray
-tmux_conf_theme_colour_9="#ffff00"    # yellow
-tmux_conf_theme_colour_10="#ff00af"   # pink
-tmux_conf_theme_colour_11="#5fff00"   # green
-tmux_conf_theme_colour_12="#8a8a8a"   # light gray
-tmux_conf_theme_colour_13="#e4e4e4"   # white
-tmux_conf_theme_colour_14="#080808"   # dark gray
-tmux_conf_theme_colour_15="#080808"   # dark gray
-tmux_conf_theme_colour_16="#d70000"   # red
-tmux_conf_theme_colour_17="#e4e4e4"   # white
+# --> Kanagawa theme, taken from kanagawa repository -> `kanagawa.nvim/lua/kanagawa/colors.lua`
+# Bg Shades
+sumiInk0="#16161D"
+sumiInk1="#181820"
+sumiInk2="#1A1A22"
+sumiInk3="#1F1F28"
+sumiInk4="#2A2A37"
+sumiInk5="#363646"
+sumiInk6="#54546D" # fg
+# Popup and Floats
+waveBlue1="#223249"
+waveBlue2="#2D4F67"
+# Diff and Git
+winterGreen="#2B3328"
+winterYellow="#49443C"
+winterRed="#43242B"
+winterBlue="#252535"
+autumnGreen="#76946A"
+autumnRed="#C34043"
+autumnYellow="#DCA561"
+# Diag
+samuraiRed="#E82424"
+roninYellow="#FF9E3B"
+waveAqua1="#6A9589"
+dragonBlue="#658594"
+# Fg and Comments
+oldWhite="#C8C093"
+fujiWhite="#DCD7BA"
+fujiGray="#727169"
+oniViolet="#957FB8"
+oniViolet2="#B8B4D0"
+crystalBlue="#7E9CD8"
+springViolet1="#938AA9"
+springViolet2="#9CABCA"
+springBlue="#7FB4CA"
+lightBlue="#A3D4D5"
+waveAqua2="#7AA89F"
+springGreen="#98BB6C"
+boatYellow1="#938056"
+boatYellow2="#C0A36E"
+carpYellow="#E6C384"
+sakuraPink="#D27E99"
+waveRed="#E46876"
+PeachRed="#FF5D62"
+surimiOrange="#FFA066"
+katanaGray="#717C7C"
+# Extra
+dragonBlack0="#0D0C0C"
 
-# default theme (ansi)
-#tmux_conf_theme_colour_1="colour0"
-#tmux_conf_theme_colour_2="colour8"
-#tmux_conf_theme_colour_3="colour8"
-#tmux_conf_theme_colour_4="colour14"
-#tmux_conf_theme_colour_5="colour11"
-#tmux_conf_theme_colour_6="colour0"
-#tmux_conf_theme_colour_7="colour15"
-#tmux_conf_theme_colour_8="colour0"
-#tmux_conf_theme_colour_9="colour11"
-#tmux_conf_theme_colour_10="colour13"
-#tmux_conf_theme_colour_11="colour10"
-#tmux_conf_theme_colour_12="colour8"
-#tmux_conf_theme_colour_13="colour15"
-#tmux_conf_theme_colour_14="colour0"
-#tmux_conf_theme_colour_15="colour0"
-#tmux_conf_theme_colour_16="colour1"
-#tmux_conf_theme_colour_17="colour15"
+# |      status left      |       window list        |      status right     |
+# | 1st b | 2nd b | 3rd b |          4th b           | 5th b | 6th b | 7th b |
+
+tmux_conf_theme_colour_1="$sumiInk0"      # 4th block bg
+tmux_conf_theme_colour_2="$sumiInk5"      # previous window bg & pane border
+tmux_conf_theme_colour_3="$sumiInk6"      # other windows fg
+tmux_conf_theme_colour_4="$oniViolet"     # current window bg & previous window fg
+tmux_conf_theme_colour_5="$autumnGreen"   # highlight selection on list (C-b w)
+
+tmux_conf_theme_colour_6="$winterBlue"    # 1st block fg
+tmux_conf_theme_colour_7="$crystalBlue"   # 2nd block fg
+tmux_conf_theme_colour_8="$fujiWhite"     # 3rd block fg
+tmux_conf_theme_colour_9="$crystalBlue"   # 1st block bg & pane border active on copy mode
+tmux_conf_theme_colour_10="$winterBlue"   # 2nd block bg
+tmux_conf_theme_colour_11="$sumiInk4"     # 3rd block bg
+
+tmux_conf_theme_colour_12="$dragonBlack0" # 5th block fg
+tmux_conf_theme_colour_13="$sumiInk3"     # 6th block fg
+tmux_conf_theme_colour_14="$sumiInk3"     # 7th block fg & pane border active
+tmux_conf_theme_colour_15="$waveAqua1"    # 5th block bg
+tmux_conf_theme_colour_16="$surimiOrange" # 6th block bg
+tmux_conf_theme_colour_17="$PeachRed"     # 7th block bg
 
 # window style
 tmux_conf_theme_window_fg="default"
@@ -233,14 +297,14 @@ tmux_conf_theme_window_status_last_bg="$tmux_conf_theme_colour_2"
 tmux_conf_theme_window_status_last_attr="none"
 
 # status left/right sections separators
-tmux_conf_theme_left_separator_main=""
-tmux_conf_theme_left_separator_sub="|"
-tmux_conf_theme_right_separator_main=""
-tmux_conf_theme_right_separator_sub="|"
-#tmux_conf_theme_left_separator_main='\uE0B0'  # /!\ you don't need to install Powerline
-#tmux_conf_theme_left_separator_sub='\uE0B1'   #   you only need fonts patched with
-#tmux_conf_theme_right_separator_main='\uE0B2' #   Powerline symbols or the standalone
-#tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see README.md
+# tmux_conf_theme_left_separator_main=""
+# tmux_conf_theme_left_separator_sub="|"
+# tmux_conf_theme_right_separator_main=""
+# tmux_conf_theme_right_separator_sub="|"
+tmux_conf_theme_left_separator_main='\uE0B0'  # /!\ you don't need to install Powerline
+tmux_conf_theme_left_separator_sub='\uE0B1'   #   you only need fonts patched with
+tmux_conf_theme_right_separator_main='\uE0B2' #   Powerline symbols or the standalone
+tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see README.md
 
 # status left/right content:
 #   - separate main sections with "|"
@@ -269,9 +333,10 @@ tmux_conf_theme_right_separator_sub="|"
 #     - #{uptime_s}
 #     - #{username}
 #     - #{username_ssh}
+# 
 tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
 #tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} | #{pretty_pane_current_path} "
-tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} "
+tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %b%d(%a) %H:%M   | #{username}#{root} | #{hostname} "
 
 # status left style
 tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_6,$tmux_conf_theme_colour_7,$tmux_conf_theme_colour_8"
@@ -281,7 +346,7 @@ tmux_conf_theme_status_left_attr="bold,none,none"
 # status right style
 tmux_conf_theme_status_right_fg="$tmux_conf_theme_colour_12,$tmux_conf_theme_colour_13,$tmux_conf_theme_colour_14"
 tmux_conf_theme_status_right_bg="$tmux_conf_theme_colour_15,$tmux_conf_theme_colour_16,$tmux_conf_theme_colour_17"
-tmux_conf_theme_status_right_attr="none,none,bold"
+tmux_conf_theme_status_right_attr="bold,bold,bold"
 
 # pairing indicator
 tmux_conf_theme_pairing="⚇"                 # U+2687
@@ -296,13 +361,13 @@ tmux_conf_theme_prefix_bg="none"
 tmux_conf_theme_prefix_attr="none"
 
 # mouse indicator
-tmux_conf_theme_mouse="↗"                   # U+2197
+tmux_conf_theme_mouse="󰍽"                   # U+F037D
 tmux_conf_theme_mouse_fg="none"
 tmux_conf_theme_mouse_bg="none"
 tmux_conf_theme_mouse_attr="none"
 
 # root indicator
-tmux_conf_theme_root="!"
+tmux_conf_theme_root="󱈸"                    # U+F1238
 tmux_conf_theme_root_fg="none"
 tmux_conf_theme_root_bg="none"
 tmux_conf_theme_root_attr="bold,blink"
@@ -314,10 +379,11 @@ tmux_conf_theme_synchronized_bg="none"
 tmux_conf_theme_synchronized_attr="none"
 
 # battery bar symbols
-tmux_conf_battery_bar_symbol_full="◼"
-tmux_conf_battery_bar_symbol_empty="◻"
-#tmux_conf_battery_bar_symbol_full="♥"
-#tmux_conf_battery_bar_symbol_empty="·"
+# tmux_conf_battery_bar_symbol_full="◼"
+# tmux_conf_battery_bar_symbol_empty="◻"
+# tmux_conf_battery_bar_symbol_full="♥"
+tmux_conf_battery_bar_symbol_full="" # accela, U+F3FE
+tmux_conf_battery_bar_symbol_empty="·"
 
 # battery bar length (in number of symbols), possible values are:
 #   - auto
@@ -369,8 +435,9 @@ tmux_conf_theme_clock_style="24"
 #   - true
 #   - false (default)
 #   - disabled
+# on macOS, this requires installing reattach-to-user-namespace, see README.md
 # on Linux, this requires xsel, xclip or wl-copy
-tmux_conf_copy_to_os_clipboard=false
+tmux_conf_copy_to_os_clipboard=true
 
 
 # -- urlscan -------------------------------------------------------------------
@@ -380,14 +447,28 @@ tmux_conf_urlscan_options="--compact --dedupe"
 
 
 # -- user customizations -------------------------------------------------------
-
 # this is the place to override or undo settings
 
 # increase history size
-#set -g history-limit 10000
+set -g history-limit 10000
 
 # start with mouse mode enabled
-#set -g mouse on
+set -g mouse on
+
+# split current window vertically
+bind | split-window -h
+
+# toggle visibility of status bar
+bind ñ set-option status
+
+# skip "kill-pane 1? (y/n)" prompt
+# bind-key x kill-pane
+
+# don't exit from tmux when closing a session
+set -g detach-on-destroy off
+
+# Nice Nerd Font gluph on <prefix> + T
+set -g @t-fzf-prompt '  '
 
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual
@@ -405,7 +486,7 @@ tmux_conf_urlscan_options="--compact --dedupe"
 # bind c new-window -c '#{pane_current_path}' #!important
 
 # move status line to top
-#set -g status-position top
+set -g status-position top
 
 
 # -- tpm -----------------------------------------------------------------------
@@ -445,9 +526,13 @@ tmux_conf_uninstall_plugins_on_reload=true
 # visit https://github.com/tmux-plugins for available plugins
 #set -g @plugin 'tmux-plugins/tmux-copycat'
 #set -g @plugin 'tmux-plugins/tmux-cpu'
-#set -g @plugin 'tmux-plugins/tmux-resurrect'
-#set -g @plugin 'tmux-plugins/tmux-continuum'
-#set -g @continuum-restore 'on'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @continuum-restore 'on'
+set -g @plugin 'christoomey/vim-tmux-navigator'
+set -g @plugin 'joshmedeski/t-smart-tmux-session-manager'
+set -g @plugin 'omerxx/tmux-sessionx'
+# set -g @plugin 'obergodmar/kanagawa-tmux'
 
 
 # -- custom variables ----------------------------------------------------------
